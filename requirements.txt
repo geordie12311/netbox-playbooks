@@ -1,2 +1,11 @@
-pynetbox
-netaddr
+ansible
+ansible-lint
+bandit
+black
+paramiko
+pylint
+pynetbox==5.0.5
+pytest
+pytest-pythonpath
+textfsm
+yamllint

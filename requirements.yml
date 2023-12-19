@@ -1,5 +1,8 @@
 ---
 collections:
-  - "ansible.netcommon"
-  - "netbox.netbox"
-...
+  - name: netbox.netbox
+    version: 1.0.0
+
+roles:
+  - name: ansible-network.network-engine
+  - name: ansible-netcommon
