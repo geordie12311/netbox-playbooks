@@ -1,0 +1,17 @@
+---
+- name: "Test NetBox modules"
+  connection: local
+  hosts: localhost
+  gather_facts: False
+
+  tasks:
+    - name: Create rack within NetBox
+      netbox.netbox.netbox_rack:
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
+        data:
+          name: Test rack
+          site: gh-lab
+          location: Test Location
+        state: present
+...

@@ -1,0 +1,35 @@
+---
+# Connectivity Variables
+netbox_url: "http://localhost:8000/"
+netbox_token: "f5b7a5d5f95f01e111bc954d504a9ac0ba66265c"
+# Netbox_token = f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
+# Configuration data:
+location:
+  region: "UK"
+  hq: "GH lab"
+interfaces:
+  lan: "ens34" # Lab interface
+  wan: "ens33" # Internet interface
+vlan_list:
+  - name: "Management"
+    prefix: "192.168.10.0/24"
+    vid: 10
+  - name: "Engineering"
+    prefix: "192.168.11.0/24"
+    vid: 11
+  - name: "Sales"
+    prefix: "192.168.12.0/24"
+    vid: 12
+  - name: "Finance"
+    prefix: "192.168.13.0/24"
+    vid: 13
+ethernet_cables:
+  - a: {device: "R1", name: "{{ interfaces.lan }}"} # can reference other vars
+    b: {device: "S2", name: "{{ GigabitEthernet0/1" }
+  - a: {device: "S2", name: "{{ GigabitEthernet0/2" }
+    b: {device: "S3", name: "{{ GigabitEthernet1/2" }
+  - a: {device: "S2", name: "{{ GigabitEthernet0/3" }
+    b: {device: "S4", name: "{{ Ethernet3" }
+  - a: {device: "S3", name: "{{ Ethernet1/1" }
+    b: {device: "S4", name: "{{ Ethernet1" }
+...

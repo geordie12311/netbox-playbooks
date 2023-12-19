@@ -1,0 +1,25 @@
+---
+- name: "Build Netbox in gh-labs"
+  connection: local
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: "Build the Organisation in NetBox"
+      ansible.builtin.import_playbook: netbox-build-org.yml
+
+    - name: "Build the Racks NetBox"
+      ansible.builtin.import_playbook: netbox-build-rack.yml
+
+    - name: "Build the Devices in NetBox"
+      ansible.builtin.import_playbook: netbox-build-devices.yml
+
+    - name: "Build the IPAM Device Interfaces in NetBox"
+      ansible.builtin.import_playbook: netbox-build-interfaces.yml
+
+    - name: "Build the IPAM information in NetBox"
+      ansible.builtin.import_playbook: netbox-build-ipam.yml
+
+    - name: "Build the circuit information in NetBox"
+      ansible.builtin.import_playbook: netbox-build-circuits.yml
+...

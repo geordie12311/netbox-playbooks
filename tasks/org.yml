@@ -1,0 +1,21 @@
+---
+- name: "Create region"
+  netbox.netbox.netbox_region:
+    netbox_url: http://localhost:8000/
+    netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
+    data:
+      name: "UK"
+    state: present
+
+- name: "Create HQ site"
+  netbox.netbox.netbox_site:
+    netbox_url: http://localhost:8000/
+    netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
+    data:
+      name: gh-lab
+      status: active
+      region: UK
+      site_group: Drax-test
+      tenant: Test
+    state: present
+...

@@ -1,0 +1,14 @@
+- name: "Test NetBox IP address module"
+  connection: local
+  hosts: localhost
+  gather_facts: False
+
+  tasks:
+    - name: Create IP address within NetBox with only required information
+      netbox.netbox.netbox_ip_address:
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
+        data:
+          address: 192.168.1.10
+        state: present
+...

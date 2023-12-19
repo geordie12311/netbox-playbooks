@@ -1,0 +1,121 @@
+---
+- name: "Create data center racks"
+  netbox.netbox.netbox_rack:
+    netbox_url: http://localhost:8000/
+    netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
+    data:
+      name: "{{ item }}"
+      site: gh-lab
+      type: "4-post cabinet"
+      width: 19
+      u_height: 42
+      desc_units: true
+    state: present
+  loop: ["Row1RackA", "Row1RackB"]
+
+- name: "Create Manufacturers"
+  netbox.netbox.netbox_manufacturer:
+    netbox_url: http://localhost:8000/
+    netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
+    data:
+      name: "{{ item }}"
+  loop: ["Cisco", "Arista"]
+
+- name: "Create Device Types"
+  netbox.netbox.netbox_device_type:
+    netbox_url: http://localhost:8000/
+    netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
+    data:
+      slug: "{{ item.slug }}"
+      model: "{{ item.slug }}"
+      manufacturer: "{{ item.manufacturer }}"
+      u_height: "{{ item.u_height }}"
+      is_full_depth: true
+  loop:
+    - manufacturer: "Cisco"
+      slug: "ISR-4451"
+      u_height: 2
+
+    - manufacturer: "Cisco"
+      slug: "C9300-48T"
+      u_height: 1
+    - manufacturer: "Cisco"
+      slug: "N9K-9372TX"
+      u_height: 1
+    - manufacturer: "Arista"
+      slug: "DCS-7050Qx-32S"
+      u_height: 1
+  loop_control:
+    label: "{{ item.manufacturer }} {{ item.slug }}"
+
+- name: "Create Device Roles"
+  netbox.netbox.netbox_device_role:
+    netbox_url: http://localhost:8000/
+    netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
+    data:
+      name: "{{ item.name }}"
+  loop:
+    - name: "Router"
+    - name: "Switch"
+  loop_control:
+    label: "{{ item.name }}"
+
+- name: "Create Platforms (netwok OS)"
+  netbox.netbox.netbox_platform:
+    netbox_url: http://localhost:8000/
+    netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
+    data:
+      name: "{{ item.name }}"
+      manufacturer: "{{ item.manufacturer }}"
+  loop:
+    - name: "ios"
+      manufacturer: "Cisco"
+    - name: "nxos"
+      manufacturer: "Cisco"
+    - name: "eos"
+      manufacturer: "Arista"
+  loop_control:
+    label: "{{ item.manufacturer }} {{ item.name }}"
+
+- name: "Create devices"
+  netbox.netbox.netbox_device:
+    netbox_url: http://localhost:8000/
+    netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
+    data:
+      name: "{{ item.name }}"
+      status: "active"
+      device_type: "{{ item.device_type }}"
+      device_role: "{{ item.device_role }}"
+      platform: "{{ item.platform }}"
+      rack: "{{ item.rack }}"
+      position: "{{ item.position }}"
+      face: "front"
+      site: "{{ location.hq }}"
+  loop:
+    - name: "R1"
+      device_type: "ISR-4451"
+      device_role: "Router"
+      platform: "ios"
+      rack: "Row1RackA"
+      position: 1
+    - name: "S2"
+      device_type: "C9300-48T"
+      device_role: "Switch"
+      platform: "ios"
+      rack: "Row1RackA"
+      position: 5
+    - name: "S3"
+      device_type: "N9K-9372TX"
+      device_role: "Switch"
+      platform: "nxos"
+      rack: "Row1RackB"
+      position: 1
+    - name: "S4"
+      device_type: "DCS-7050QX-32S"
+      device_role: "Switch"
+      platform: "eos"
+      rack: "Row1RackB"
+      position: 3
+  loop_control:
+    label: "{{ item.name }} - {{ item.device_type }}"
+...

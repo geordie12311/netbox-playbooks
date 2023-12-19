@@ -1,0 +1,22 @@
+---
+- name: "Create region"
+  netbox.netbox.netbox_region:
+    netbox_url: "{{ lookup('env','NETBOX_url') }}"
+    netbox_token: "{{ lookup('env','NETBOX_TOKEN') }}"
+    data:
+      name: "{{ location.region }}"
+
+- name: "Create HQ site"
+  netbox.netbox.netbox_site:
+    netbox_url: "{{ lookup('env','NETBOX_url') }}"
+    netbox_token: "{{ lookup('env','NETBOX_TOKEN') }}"
+    data:
+      name: "{{ location.hq }}"
+      status: "active"
+      region: "{{ location.region }}"
+      asn: 65001
+      time_zone: "Europe/London"
+      physical_address: "gh-lab"
+      contact_name: "Geordie"
+      contact_email: "Geordie@gh-lab.com"
+...

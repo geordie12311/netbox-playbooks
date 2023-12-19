@@ -1,0 +1,115 @@
+---
+# Build layer1 connectivity between devices
+- name: "Create Ethernet interfaces on A-side device"
+  netbox.netbox.netbox_device_interface:
+    netbox_url: http://localhost:8000/
+    netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
+    data:
+      device: "{{ item.a.device }}"
+      description: "To {{ item.b.device }} {{ item.b.name }}"
+      name: "{{ item.a.name }}"
+      type: "1000base-t"  # 1 Gbps Ethernet over copper/cat5e
+      enabled: true
+  vars: 
+    ethernet_cables:
+    - a: {device: "R1", name: "GigabitEthernet1"}
+      b: {device: "S2", name: "GigabitEthernet0/1"}
+    - a: {device: "S2", name: "GigabitEthernet0/2"}
+      b: {device: "S3", name: "Ethernet1/2"}
+    - a: {device: "S2", name: "GigabitEthernet0/3"}
+      b: {device: "S4", name: "Ethernet3"}
+    - a: {device: "S3", name: "Ethernet1/1"}
+      b: {device: "S4", name: "Ethernet1"}
+  loop: "{{ ethernet_cables }}"
+  loop_control:
+    label: "{{ item.a.device }} - {{ item.a.name }}"
+
+- name: "Create Ethernet interfaces on B-side device"
+  netbox.netbox.netbox_device_interface:
+    netbox_url: http://localhost:8000/
+    netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
+    data:
+      device: "{{ item.b.device }}"
+      description: "To {{ item.a.device }} {{ item.a.name }}"
+      name: "{{ item.b.name }}"
+      type: "1000base-t"  # 1 Gbps Ethernet over copper/cat5e
+      enabled: true
+  vars: 
+    ethernet_cables:
+    - a: {device: "R1", name: "GigabitEthernet1"}
+      b: {device: "S2", name: "GigabitEthernet0/1"}
+    - a: {device: "S2", name: "GigabitEthernet0/2"}
+      b: {device: "S3", name: "Ethernet1/2"}
+    - a: {device: "S2", name: "GigabitEthernet0/3"}
+      b: {device: "S4", name: "Ethernet3"}
+    - a: {device: "S3", name: "Ethernet1/1"}
+      b: {device: "S4", name: "Ethernet1"} 
+  loop: "{{ ethernet_cables }}"
+  loop_control:
+    label: "{{ item.b.device }} - {{ item.b.name }}"
+
+- name: "Create cables to interconnect Ethernet interfaces"
+  netbox.netbox.netbox_cable:
+    netbox_url: http://localhost:8000/
+    netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
+    data:
+      type: "cat5e"
+      status: "connected"
+      termination_a_type: "dcim.interface"
+      termination_a: "{{ item.a }}"
+      termination_b_type: "dcim.interface"
+      termination_b: "{{ item.b }}"
+  vars: 
+    ethernet_cables:
+    - a: {device: "R1", name: "GigabitEthernet1"}
+      b: {device: "S2", name: "GigabitEthernet0/1"}
+    - a: {device: "S2", name: "GigabitEthernet0/2"}
+      b: {device: "S3", name: "Ethernet1/2"}
+    - a: {device: "S2", name: "GigabitEthernet0/3"}
+      b: {device: "S4", name: "Ethernet3"}
+    - a: {device: "S3", name: "Ethernet1/1"}
+      b: {device: "S4", name: "Ethernet1"}
+  loop: "{{ ethernet_cables }}"
+  loop_control:
+    label: "{{ item.a.device }} - {{ item.b.device }}"
+
+# Build layer-2/3 connectivity between devices
+- name: "Create VLANs"
+  netbox.netbox.netbox_vlan:
+    netbox_url: http://localhost:8000/
+    netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
+    data:
+      name: "{{ item.name }}"
+      vid: "{{ item.vid }}"
+      site: "{{ location.hq }}"
+      status: "active"
+  vars:
+    vlan_list:
+    - name: "Management"
+      prefix: "192.168.10.0/24"
+      vid: 10
+    - name: "Engineering"
+      prefix: "192.168.11.0/24"
+      vid: 11
+    - name: "Sales"
+      prefix: "192.168.12.0/24"
+      vid: 12
+    - name: "Finance"
+      prefix: "192.168.13.0/24"
+      vid: 13
+  loop: "{{ vlan_list }}"
+  loop_control:
+    label: "{{ item.name }} / VID {{ item.vid }}"
+
+- name: "Create IP prefixes and assign to VLANs"
+  netbox.netbox.netbox_prefix:
+    netbox_url: http://localhost:8000/
+    netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
+    data:
+      prefix: "{{ item.prefix }}"
+      vlan: "{{ item.name }}"
+      site: "{{ location.hq }}"
+  loop: "{{ vlan_list }}"
+  loop_control:
+    label: "{{ item.prefix }} / VLAN {{ item.name }}"
+...
