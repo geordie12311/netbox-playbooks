@@ -7,8 +7,8 @@
   tasks:
     - name: "TASK 1: SETUP SITES"
       netbox.netbox.netbox_site:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data: "{{ site }}"
         state: "{{ install_state }}"
       register: site_setup
@@ -20,8 +20,8 @@
 
     - name: "TASK 2: SETUP RACKS"
       netbox.netbox.netbox_rack:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data: "{{ rack }}"
         state: "{{ install_state }}"
       loop: "{{ racks }}"
@@ -32,8 +32,8 @@
 
     - name: "TASK 3: SETUP MANUFACTURERS"
       netbox.netbox.netbox_manufacturer:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data:
           name: "{{ manufacturer }}"
         state: "{{ install_state }}"
@@ -44,8 +44,8 @@
 
     - name: "TASK 4: SETUP DEVICE TYPES"
       netbox.netbox.netbox_device_type:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data:
           model: "{{ device_type.model }}"
           manufacturer: "{{ device_type.manufacturer }}"
@@ -62,8 +62,8 @@
 
     - name: "TASK 5: SETUP PLATFORMS"
       netbox.netbox.netbox_platform:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data:
           name: "{{ platform.name }}"
           slug: "{{ platform.slug }}"
@@ -76,8 +76,8 @@
 
     - name: "TASK 6: SETUP DEVICE ROLES"
       netbox.netbox.netbox_device_role:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data:
           name: "{{ device_role.name }}"
           color: "{{ device_role.color }}"
@@ -91,8 +91,8 @@
 
     - name: "TASK 7: SETUP VLANS"
       netbox.netbox.netbox_vlan:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data:
           name: "VLAN{{ vlan.vid }}"
           vid: "{{ vlan.vid }}"
@@ -108,8 +108,8 @@
 
     - name: "TASK 8: SETUP RFC1918 RIR"
       netbox.netbox.netbox_rir:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data: "{{ rir }}"
         state: "{{ install_state }}"
       loop: "{{ rirs }}"
@@ -120,8 +120,8 @@
 
     - name: "TASK 8: SETUP AGGREGRATES"
       netbox.netbox.netbox_aggregate:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data:
           prefix: "{{ aggregate.name }}"
           description: "{{ aggregate.desc }}"
@@ -135,8 +135,8 @@
 
     - name: "TASK 9: SETUP PREFIXES"
       netbox.netbox.netbox_prefix:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data:
           family: 4
           prefix: "{{ prefix.prefix }}"
@@ -153,8 +153,8 @@
 
     - name: "TASK 10: SETUP CIRCUIT PROVIDER"
       netbox.netbox.netbox_provider:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data: "{{ circuit_provider }}"
         state: "{{ install_state }}"
       loop: "{{ circuit_providers }}"
@@ -165,8 +165,8 @@
 
     - name: Create type within Netbox with only required information
       netbox.netbox.netbox_circuit_type:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data: "{{ circuit_type }}"
         state: "{{ install_state }}"
       loop: "{{ circuit_types }}"
@@ -177,8 +177,8 @@
 
     - name: "CREATE LOCAL CIRCUIT"
       netbox.netbox.netbox_circuit:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data: "{{ circuit }}"
         state: "{{ install_state }}"
       loop: "{{ circuits }}"
@@ -186,3 +186,4 @@
         loop_var: circuit
         label: "{{ circuit['cid'] }}"
       tags: [ circuit ]
+...

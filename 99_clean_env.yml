@@ -6,16 +6,16 @@
   tasks:
     - name: "TASK 1: NETBOX >> REMOVE DEVICE TO NETBOX"
       netbox.netbox.netbox_device:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data:
           name: "{{ inventory_hostname }}"
         state: absent
 
     - name: "TASK 2: DELETE SW1:2 DEVICE TO NETBOX"
       netbox.netbox.netbox_device:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data:
           name: "sw-1:2"
           device_type: "IOSv"
@@ -45,24 +45,24 @@
       - { name: pve02, address: "192.168.0.253/24" }
     netbox_headers:
       Content-Type: "application/json"
-      Authorization: "token {{ lookup('ENV', 'NETBOX_API_KEY') }}"
-    netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-    netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+      Authorization: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
   tasks:
     - name: "TASK 1: SYS >> DELETE SOME VMs"
       netbox.netbox.netbox_virtual_machine:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data:
           name: "{{ item.name }}"
-          cluster: JoshV_Cluster1
+          cluster: GH_Cluster1
         state: absent
       loop: "{{ vms }}"
 
     - name: "TASK 2: SYS >> DELETE CLUSTER HOSTS"
       netbox.netbox.netbox_device:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data:
           name: "{{ item.name }}"
           device_type: CustomServer
@@ -73,17 +73,17 @@
 
     - name: "TASK 3: SYS >> DELETE VM CLUSTER"
       netbox.netbox.netbox_cluster:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data:
-          name: JoshV_Cluster1
+          name: GH_Cluster1_Cluster1
           cluster_type: Proxmox
         state: absent
 
     - name: "TASK 4: DELETE CLUSTER TYPE"
       netbox.netbox.netbox_cluster_type:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data:
           name: Proxmox
         state: absent
@@ -96,16 +96,16 @@
   tasks:
     - name: "TASK 1: DELETE LOCAL CIRCUIT"
       netbox.netbox.netbox_circuit:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data:
           cid: my-circuit-id
         state: "{{ install_state }}"
 
     - name: "TASK 2: DELETE CIRCUIT TYPE"
       netbox.netbox.netbox_circuit_type:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data:
           name: Cable
         state: "{{ install_state }}"
@@ -113,8 +113,8 @@
 
     - name: "TASK 3: DELETE CIRCUIT PROVIDER"
       netbox.netbox.netbox_provider:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data:
           name: Charter Spectrum
           asn: 7843
@@ -127,8 +127,8 @@
 
     - name: "TASK 4: DELETE PREFIXES"
       netbox.netbox.netbox_prefix:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data:
           family: 4
           prefix: "{{ item.prefix }}"
@@ -147,8 +147,8 @@
 
     - name: "TASK 5: DELETE AGGREGRATES"
       netbox.netbox.netbox_aggregate:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data:
           prefix: "{{ item.name }}"
           description: "{{ item.desc }}"
@@ -163,8 +163,8 @@
 
     - name: "TASK 6: DELETE RFC1918 RIR"
       netbox.netbox.netbox_rir:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data:
           name: RFC1918
           is_private: True
@@ -173,12 +173,12 @@
 
     - name: "TASK 7: DELETE VLANS"
       netbox.netbox.netbox_vlan:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data:
           name: "VLAN{{ item.vid }}"
           vid: "{{ item.vid }}"
-          site: "MINNESOTA01"
+          site: "GH-lab"
           description: "{{ item.desc }}"
         state: "{{ install_state }}"
       register: result
@@ -190,8 +190,8 @@
 
     - name: "TASK 8: DELETE DEVICE ROLES"
       netbox.netbox.netbox_device_role:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data:
           name: "{{ item.name }}"
           color: "{{ item.color }}"
@@ -209,8 +209,8 @@
 
     - name: "TASK 9: DELETE PLATFORMS"
       netbox.netbox.netbox_platform:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data:
           name: "{{ item.name }}"
           slug: "{{ item.slug }}"
@@ -231,8 +231,8 @@
 
     - name: "TASK 10: DELETE DEVICE TYPES"
       netbox.netbox.netbox_device_type:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data:
           model: "{{ item.model }}"
           manufacturer: "{{ item.manufacturer }}"
@@ -253,8 +253,8 @@
 
     - name: "TASK 11: DELETE MANUFACTURERS"
       netbox.netbox.netbox_manufacturer:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data:
           name: "{{ item }}"
         state: "{{ install_state }}"
@@ -267,25 +267,26 @@
 
     - name: "TASK 12: DELETE RACKS"
       netbox.netbox.netbox_rack:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data:
           name: "MN_01"
-          site: "MINNESOTA01"
+          site: "GH-lab"
         state: "{{ install_state }}"
       tags: [ sites, devices ]
 
     - name: "TASK 13: DELETE SITES"
       netbox.netbox.netbox_site:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data:
-          name: "MINNESOTA01"
-          time_zone: America/Chicago
+          name: ""GH-lab""
+          time_zone: Europe/London
           status: active
-          description: Josh's Home
-          contact_name: Josh V
-          contact_email: josh@josh-v.com
+          description: GH lab
+          contact_name: Geordie
+          contact_email: geordie@gh-lab.com
         state: "{{ install_state }}"
       register: site_setup
       tags: [ sites, devices ]
+...

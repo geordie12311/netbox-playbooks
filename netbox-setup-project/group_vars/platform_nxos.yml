@@ -1,0 +1,5 @@
+---
+ansible_ios: nxos
+ansible_user: cisco
+ansible_password: cisco123
+...

@@ -10,8 +10,8 @@
 
     - name: "TASK 2: NETBOX >> ADD DEVICE TO NETBOX"
       netbox.netbox.netbox_device:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data:
           name: "{{ inventory_hostname }}"
           device_type: "{{ ansible_facts['net_model'] }}"
@@ -28,8 +28,8 @@
 
     - name: "TASK 3: NETBOX >> Add temporary interface"
       netbox.netbox.netbox_device_interface:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data:
           device: "{{ inventory_hostname }}"
           name: Temporary_Interface
@@ -50,8 +50,8 @@
 
     - name: "TASK 5: NETBOX >> ADD DEVICE TO NETBOX"
       netbox.netbox.netbox_device:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data:
           name: "{{ inventory_hostname }}"
           device_type: "{{ ansible_facts['net_model'] }}"
@@ -73,8 +73,8 @@
 
     - name: "TASK 2: NETBOX >> ADD DEVICE TO NETBOX"
       netbox.netbox.netbox_device:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data:
           name: "{{ inventory_hostname }}"
           device_type: "{{ ansible_facts['net_model'] }}"
@@ -90,8 +90,8 @@
 
     - name: "TASK 3: Add temporary interface"
       netbox.netbox.netbox_device_interface:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data:
           device: "{{ inventory_hostname }}"
           name: Temporary_Interface
@@ -100,8 +100,8 @@
 
     - name: "TASK 4: ADD IP ADDRESS OF ANSIBLE HOST"
       netbox.netbox.netbox_ip_address:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data:
           family: 4
           address: "{{ ansible_host }}/24"
@@ -112,8 +112,8 @@
 
     - name: "TASK 5: ADD DEVICE TO NETBOX"
       netbox.netbox.netbox_device:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data:
           name: "{{ inventory_hostname }}"
           device_type: "{{ ansible_facts['net_model'] }}"
@@ -137,8 +137,8 @@
 
     - name: "TASK 2: ADD DEVICE TO NETBOX"
       netbox.netbox.netbox_device:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data:
           name: "{{ inventory_hostname }}"
           device_type: "{{ ansible_facts['net_model'] }}"
@@ -154,8 +154,8 @@
 
     - name: "TASK 3: Add temporary interface"
       netbox.netbox.netbox_device_interface:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data:
           device: "{{ inventory_hostname }}"
           name: Temporary_Interface
@@ -164,8 +164,8 @@
 
     - name: "TASK 4: ADD IP ADDRESS OF ANSIBLE HOST"
       netbox.netbox.netbox_ip_address:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data:
           family: 4
           address: "{{ ansible_host }}/24"
@@ -176,8 +176,8 @@
 
     - name: "TASK 5: ADD DEVICE TO NETBOX"
       netbox.netbox.netbox_device:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data:
           name: "{{ inventory_hostname }}"
           device_type: "{{ ansible_facts['net_model'] }}"
@@ -198,8 +198,8 @@
 
     - name: "TASK 1: ADD DEVICE TO NETBOX"
       netbox.netbox.netbox_device:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data:
           name: "sw-1:2"
           device_type: "IOSv"
@@ -226,22 +226,22 @@
       - { name: pve02, address: "192.168.0.253/24" }
     netbox_headers:
       Content-Type: "application/json"
-      Authorization: "token {{ lookup('ENV', 'NETBOX_API_KEY') }}"
-    netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-    netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+      Authorization: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
   tasks:
     - name: "TASK 0: CREATE CLUSTER TYPE"
       netbox.netbox.netbox_cluster_type:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data:
           name: Proxmox
         state: present
 
     - name: "TASK 1: SYS >> ADD VM CLUSTER"
       netbox.netbox.netbox_cluster:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data:
           name: JoshV_Cluster1
           cluster_type: Proxmox
@@ -249,8 +249,8 @@
 
     - name: "TASK 2: SYS >> CREATE CLUSTER HOSTS"
       netbox.netbox.netbox_device:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data:
           name: "{{ item.name }}"
           device_type: CustomServer
@@ -260,8 +260,8 @@
 
     - name: "TASK 3: SYS >> SETUP SOME VMs"
       netbox.netbox.netbox_virtual_machine:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data:
           name: "{{ item.name }}"
           cluster: JoshV_Cluster1
@@ -270,8 +270,8 @@
 
     - name: "TASK 4: SYS >> Create interfaces"
       netbox.netbox.netbox_vm_interface:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data:
           virtual_machine: "{{ item.name }}"
           name: eth0
@@ -294,8 +294,8 @@
 
     - name: "TASK 6: SYS >> ASSIGN PRIMARY ADDRESS TO THE DEVICE"
       netbox.netbox.netbox_virtual_machine:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data:
           name: "{{ item.name }}"
           cluster: JoshV_Cluster1

@@ -1,0 +1,127 @@
+---
+# Connectivity Variables
+netbox_url: http://localhost:8000/
+netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
+# Netbox_token = f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
+
+# NTP / DNS server details
+ntp_servers:
+  - 162.159.200.1
+  - 162.159.200.123
+
+dns_servers:
+  - 8.8.8.8
+  - 4.4.4.4
+
+# Netbox Configuration data:
+sites:
+  - name: "GH-Lab"
+    time_zone: Europe/London
+    status: active
+    description: Dev-lab
+    contact_name: Geordie
+    contact_email: geordie@gh-lab.com
+
+racks:
+  - name: "ROW-A / RACK1"
+    site: "GH-Lab"
+  - name: "ROW-B / RACK2"
+    site: "GH-Lab"
+  - name: "ROW-B / RACK1"
+    site: "GH-Lab"
+  - name: "ROW-B / RACK2"
+
+manufacturers:
+  - Arista
+  - Cisco
+
+device_types:
+  - {"model": "C9300-48U", "manufacturer": "Cisco", "slug": "C9300-48U", "part_number": "C9300-48U", "full_depth": False}
+  - {"model": "CSR1000v", "manufacturer": "Cisco", "slug": "csr1000v", "part_number": "csr1000v", "full_depth": False}
+  - {"model": "IOSv", "manufacturer": "Cisco", "slug": "iosv", "part_number": "iosv", "full_depth": False}
+  - {"model": "nx-osv-chassis-nx-osv-supervisor-module", "manufacturer": "Cisco", "slug": "nx-osv-chassis-nx-osv-supervisor-module", "part_number": "nx-osv-chassis-nx-osv-supervisor-module", "full_depth": False}
+  - {"model": "nxosv", "manufacturer": "Cisco", "slug": "nxosv", "part_number": "nxosv", "full_depth": False}
+  - {"model": "vEOS", "manufacturer": "Arista", "slug": "veos", "part_number": "veos", "full_depth": False}  
+
+platforms:
+  - { name: EOS, slug: eos }
+  - { name: IOS, slug: ios }
+  - { name: IOS-XE, slug: ios-xe }
+  - { name: NXOS, slug: nxos }
+
+device_roles:
+  - { name: Router, color: 000080, vmrole: true }
+  - { name: Switch, color: 008000, vmrole: true }
+  - { name: VM, color: 00FFFF, vmrole: true }
+
+vlans:
+  - { vid: 100, desc: Demo VLAN }
+  - { vid: 200, desc: Primary VLAN }
+  - { vid: 300, desc: Secondary VLAN }
+
+rirs:
+  - name: RFC1918
+    is_private: True
+
+aggregates:
+  - { name: "10.0.0.0/8", desc: RFC1918 - 10, rir: RFC1918 }
+  - { name: "172.16.0.0/12", desc: RFC1918 - 172, rir: RFC1918 }
+  - { name: "192.0.2.0/24", desc: RFC5735 - 192.0.2.0, rir: RFC1918 }
+  - { name: "192.168.0.0/16", desc: RFC1918 - 192, rir: RFC1918 }
+
+prefixes:
+  - { prefix: 10.50.50.0/24, desc: lab Loopbacks, ispool: true }
+  - { prefix: 172.31.0.0/24, desc: lab - DC, ispool: false }
+  - { prefix: 172.31.1.0/24, desc: lab - DC Mgmt, ispool: false }
+  - { prefix: 192.168.0.0/24, desc: lab Remote, ispool: false }
+  - { prefix: 192.0.2.0/24, desc: Example Network, ispool: true }
+
+circuit_providers:
+  - name: GTT
+    asn: 7843
+    account: okay
+    portal_url: http://GTT.net
+    noc_contact: noc@gtt.net
+    comments: "Cable Provider"
+
+circuit_types:
+  - name: MPLS
+circuits:
+  - cid: my-circuit-id
+    provider: GTT
+    circuit_type: Ethernet
+    status: Active
+    install_date: "2016-06-01"
+    commit_rate: 200000000
+    description: GTT MPLS Ethernet
+    comments: "Delivered"
+
+#location:
+#  region: "UK"
+#  hq: "GH lab"
+#interfaces:
+#  lan: "ens34" # Lab interface
+#  wan: "ens33" # Internet interface
+#vlan_list:
+#  - name: "Management"
+#    prefix: "192.168.10.0/24"
+#    vid: 10
+#  - name: "Engineering"
+#    prefix: "192.168.11.0/24"
+#    vid: 11
+#  - name: "Sales"
+#    prefix: "192.168.12.0/24"
+#    vid: 12
+#  - name: "Finance"
+#    prefix: "192.168.13.0/24"
+#    vid: 13
+#ethernet_cables:
+#  - a: {device: "R1", name: "{{ interfaces.lan }}"} # can reference other vars
+#    b: {device: "S2", name: "{{ GigabitEthernet0/1" }
+#  - a: {device: "S2", name: "{{ GigabitEthernet0/2" }
+#    b: {device: "S3", name: "{{ GigabitEthernet1/2" }
+#  - a: {device: "S2", name: "{{ GigabitEthernet0/3" }
+#    b: {device: "S4", name: "{{ Ethernet3" }
+#  - a: {device: "S3", name: "{{ Ethernet1/1" }
+#    b: {device: "S4", name: "{{ Ethernet1" }
+...

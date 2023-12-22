@@ -21,8 +21,8 @@
 
     - name: "TASK 2: NETBOX >> ADD INTERFACES TO NETBOX"
       netbox.netbox.netbox_device_interface:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data:
           device: "{{ inventory_hostname }}"
           name: "{{ item.key }}"
@@ -36,8 +36,8 @@
 
     - name: "TASK 3: NETBOX >> ADD IP ADDRESSES TO PROPER INTERFACE"
       netbox.netbox.netbox_ip_address:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data:
           family: 4
           address: "{{ item['address'] }}"
@@ -50,8 +50,8 @@
 
     - name: "TASK 4: NETBOX >> REMOVE TEMPORARY INTERFACE"
       netbox.netbox.netbox_device_interface:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data:
           device: "{{ inventory_hostname }}"
           name: Temporary_Interface
@@ -60,8 +60,8 @@
 
     - name: "TASK 5: NETBOX >> SET PRIMARY IP"
       netbox.netbox.netbox_device:
-        netbox_url: "{{ lookup('ENV', 'NETBOX_URL') }}"
-        netbox_token: "{{ lookup('ENV', 'NETBOX_API_KEY') }}"
+        netbox_url: http://localhost:8000/
+        netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data:
           name: "{{ inventory_hostname }}"
           device_type: "{{ ansible_facts['net_model'] }}"
