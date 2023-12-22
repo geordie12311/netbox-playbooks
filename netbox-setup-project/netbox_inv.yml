@@ -4,8 +4,20 @@ api_endpoint: "http://192.168.1.10/"
 token: 0b37ac1846dbe80764035d9b2a5cf8b908a9995b
 validate_certs: false
 config_context: false
+
+# We don't need to pull down extra config data
+config_context: false
+
+# Create Ansible groups based on device roles: Router and Switch
 group_by:
-  - device_roles
+  - "device_roles"
+
+# Only return devices with management IPs (ignore passive devices)
+# The plug will also store this as "ansible_host"
+device_query_filters:
+  - has_primary_ip: "true"
+
+# Additionally, have the plugin include the network OS
 compose:
-  ansible_network_os: platform.slug
+  ansible_network_os: "platform.slug"
 ...
