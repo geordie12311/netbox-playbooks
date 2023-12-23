@@ -66,7 +66,7 @@
           name: "{{ inventory_hostname }}"
           device_type: "{{ ansible_facts['net_model'] }}"
           serial: "{{ ansible_facts['net_serialnum'] }}"
-          rack: MN_01
+          rack: GH_01
           device_role: "{{ inventory_hostname | get_role_from_hostname }}"
           primary_ip4: "{{ item['address'] }}"
       with_items:

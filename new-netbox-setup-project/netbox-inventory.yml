@@ -1,6 +1,6 @@
 ---
 plugin: netbox.netbox.nb_inventory
-api_endpoint: http://netbox03
+api_endpoint: http://localhost:80001/
 validate_certs: false
 config_context: false
 group_by:

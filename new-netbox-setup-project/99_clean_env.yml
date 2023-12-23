@@ -21,10 +21,10 @@
           device_type: "IOSv"
           platform: IOS
           serial: "ANSIBLE_FTW"
-          rack: MN_01
+          rack: GH_01
           status: Active
           device_role: "Switch"
-          site: "MINNESOTA01"
+          site: "GH-Lab"
         state: absent
       delegate_to: localhost
       run_once: yes
@@ -67,7 +67,7 @@
           name: "{{ item.name }}"
           device_type: CustomServer
           device_role: Server
-          site: minnesota01
+          site: GH-Lab
         state: absent
       loop: "{{ pves }}"
 
@@ -132,7 +132,7 @@
         data:
           family: 4
           prefix: "{{ item.prefix }}"
-          site: "MINNESOTA01"
+          site: "GH-Lab"
           status: Active
           description: "{{ item.desc }}"
           is_pool: "{{ item.ispool }}"
@@ -280,7 +280,7 @@
         netbox_url: http://localhost:8000/
         netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data:
-          name: ""GH-lab""
+          name: "GH-lab"
           time_zone: Europe/London
           status: active
           description: GH lab

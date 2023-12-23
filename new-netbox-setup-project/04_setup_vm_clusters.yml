@@ -32,7 +32,7 @@
         netbox_url: http://localhost:8000/
         netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data:
-          name: JoshV_Cluster1
+          name: GH_Cluster1
           cluster_type: Proxmox
         state: present
 
@@ -44,7 +44,7 @@
           name: "{{ item.name }}"
           device_type: CustomServer
           device_role: Server
-          site: minnesota01
+          site: GH-Lab
       loop: "{{ pves }}"
 
     - name: "TASK 3: SYS >> SETUP SOME VMs"

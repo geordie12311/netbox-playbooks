@@ -9,6 +9,6 @@ group_by:
 compose:
   ansible_network_os: platform.slug
 query_filters:
-  - site: "GH Lab"
+  - site: "GH-Lab"
   - nas_primary_ip: true
 ...

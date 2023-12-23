@@ -1,5 +1,4 @@
 # Ansible Playbook to read information from device and netbox and compare
-
 ---
 - name: "READ NETWORK DEVICE INFORMATION AND COMPARE NETBOX"
   hosts: R1

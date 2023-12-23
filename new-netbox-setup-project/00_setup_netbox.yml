@@ -96,7 +96,7 @@
         data:
           name: "VLAN{{ vlan.vid }}"
           vid: "{{ vlan.vid }}"
-          site: "MINNESOTA01"
+          site: "GH-Lab"
           description: "{{ vlan.desc }}"
         state: "{{ install_state }}"
       register: result

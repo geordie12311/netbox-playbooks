@@ -22,7 +22,7 @@
           face: "Front"
           status: Active
           device_role: "Leaf"
-          site: "MINNESOTA01"
+          site: "GH-Lab"
           custom_fields:
             code_version: "{{ ansible_facts['net_version'] }}"
 
@@ -60,7 +60,7 @@
           rack: MN_01
           face: "Front"
           status: Active
-          site: "MINNESOTA01"
+          site: "GH-Lab"
           primary_ip4: "{{ ansible_host }}/24"
 
 - name: "PLAY 2: ADD IOS"
@@ -84,7 +84,7 @@
           face: "Front"
           status: Active
           device_role: "{{ inventory_hostname | get_role_from_hostname }}"
-          site: "MINNESOTA01"
+          site: "GH-Lab"
           custom_fields:
             code_version: "{{ ansible_facts['net_version'] }}"
 
@@ -123,7 +123,7 @@
           face: "Front"
           status: Active
           device_role: "{{ inventory_hostname | get_role_from_hostname }}"
-          site: "MINNESOTA01"
+          site: "GH-Lab"
           primary_ip4: "{{ ansible_host }}/24"
 
 - name: "PLAY 3: ADD NXOS"
@@ -148,7 +148,7 @@
           face: "Front"
           status: Active
           device_role: "{{ inventory_hostname | get_role_from_hostname }}"
-          site: "MINNESOTA01"
+          site: "GH-Lab"
           custom_fields:
             code_version: "{{ ansible_facts['net_version'] }}"
 
@@ -187,7 +187,7 @@
           face: "Front"
           status: Active
           device_role: "{{ inventory_hostname | get_role_from_hostname }}"
-          site: "MINNESOTA01"
+          site: "GH-Lab"
           primary_ip4: "{{ ansible_host }}/24"
 
 - name: "PLAY 4: Add BLANK NODE"
@@ -208,7 +208,7 @@
           rack: MN_01
           status: Active
           device_role: "Switch"
-          site: "MINNESOTA01"
+          site: "GH-Lab"
 
 - name: "PLAY 5: SETUP CLUSTER"
   connection: local
@@ -243,7 +243,7 @@
         netbox_url: http://localhost:8000/
         netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data:
-          name: JoshV_Cluster1
+          name: GH_Cluster1
           cluster_type: Proxmox
         state: present
 
@@ -255,7 +255,7 @@
           name: "{{ item.name }}"
           device_type: CustomServer
           device_role: Server
-          site: minnesota01
+          site: GH-Lab
       loop: "{{ pves }}"
 
     - name: "TASK 3: SYS >> SETUP SOME VMs"
@@ -264,7 +264,7 @@
         netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data:
           name: "{{ item.name }}"
-          cluster: JoshV_Cluster1
+          cluster: GH_Cluster1
         state: present
       loop: "{{ vms }}"
 
@@ -298,7 +298,7 @@
         netbox_token: f5b7a5d5f95f01e111bc954d504a9ac0ba66265c
         data:
           name: "{{ item.name }}"
-          cluster: JoshV_Cluster1
+          cluster: GH_Cluster1
           primary_ip4: "{{ item.address }}"
         state: present
       loop: "{{ vms }}"
