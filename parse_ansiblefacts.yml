@@ -1,0 +1,93 @@
+#Playbook to parse ansible facts to netbox
+---
+
+- name: IOS block
+  block:
+  - name: IOS facts
+    cisco.ios.ios_facts:
+      gather_subset:
+        - hardware
+      gather_network_resources:
+        - "interfaces"
+        - "l2_interfaces"
+        - "l3_interfaces"
+        - "acl_interfaces"
+        - "static_routes" 
+        - "acls" 
+    register: _ios_facts
+    become: true
+  - debug:
+      var: _ios_facts
+      verbosity: 2
+  - set_fact:
+      _facts: "{{ _ios_facts }}"
+  when: ansible_network_os == 'ios'
+  tags: [facts, inventory]
+
+#- name: JunOS block
+#  block:
+#  - name: JunOS facts
+#    junipernetworks.junos.junos_facts:
+#      gather_subset:
+#        - hardware
+#      gather_network_resources:
+#        - "interfaces"
+#        - "l2_interfaces"
+#        - "l3_interfaces"
+#        - "acl_interfaces"
+#        - "static_routes" 
+#        - "acls" 
+#    register: _junos_facts
+#    become: true
+#  - ansible.builtin.debug:
+#      var: _junos_facts
+#      verbosity: 2
+#  - ansible.builtin.set_fact:
+#      _facts: "{{ _junos_facts }}"
+#  when: ansible_network_os == 'junipernetworks.junos.junos'
+#  tags: [facts, inventory]
+
+#- name: EOS block
+#  block:
+#  - name: EOS facts
+#    arista.eos.eos_facts:
+#      gather_subset:
+#        - hardware
+#      gather_network_resources:
+#        - all
+#    register: _eos_facts
+#    become: true
+#  - debug:
+#      var: _eos_facts
+#      verbosity: 2
+#  - set_fact:
+#      _facts: "{{ _eos_facts }}"
+#  when: ansible_network_os == 'eos'
+#  tags: [facts, inventory]
+
+- name: NETBOX block
+  block:
+  - name: Make sure device type is configured
+    netbox.netbox.netbox_device_type:
+      netbox_url: "{{ net_netbox_url }}" #Note: (you need to ensure your netbox url is saved as net_netbox_url in vars)
+      netbox_token: "{{ net_netbox_token }}" #Note: (you need to ensure your API token is saved as net_netbox_token in vars)
+      validate_certs: no
+      data: 
+        model: "{{ _facts.ansible_facts.ansible_net_system | default('unknown') }}"
+        manufacturer: "{% if ansible_network_os == 'eos' %}arista{% elif ansible_network_os == 'junipernetworks.junos.junos' %}juniper{% else %}cisco{% endif %}"
+        slug: "{{ _facts.ansible_facts.ansible_net_system | default('unknown') }}"
+    throttle: 1
+  - name: push device inventory data to netbox
+    netbox.netbox.netbox_device:
+      netbox_url: "{{ net_netbox_url }}"
+      netbox_token: "{{ net_netbox_token }}"
+      validate_certs: no
+      data: 
+        name: "{{ inventory_hostname }}"
+        site: "{{ net_site }}"
+        serial: "{{ _facts.ansible_facts.ansible_net_serialnum | default(omit) }}"
+        device_type: "{{ _facts.ansible_facts.ansible_net_system | default('unknown') }}"
+        device_role: "{{ net_device_role }}"
+        local_context_data: "{{ _facts.ansible_facts.ansible_network_resources }}"
+        comments: "added by Ansible"
+  tags: netbox
