@@ -1,4 +1,4 @@
-# Ansible Playbook to add circuit to Netbox
+# Ansible Playbook to buld regions in netbox
 # Note: you need to export NETBOX_URL and NETBOX_TOKEN first Example:
 # export NETBOX_URL=http://192.168.1.1/
 # export NETBOX_token=abcde123456723456!!
