@@ -1,3 +1,4 @@
+# Ansible Playbook to generate config file using netbox data and jinja2 template
 ---
 - name: Create configuration files from Netbox data
   connection: local
