@@ -14,6 +14,6 @@
     - name: Save output to backup folder
       ansible.builtin.copy:
         content: "{{ config.stdout[0] }}"
-        dest: "./device_backups{{ inventory_hostname }}.config.txt"
+        dest: "./device_backups/{{ inventory_hostname }}.config.txt"
         mode: "0644"
 ...
