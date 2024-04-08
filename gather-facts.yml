@@ -1,3 +1,4 @@
+# Ansible playbook to gather facts from hosts using Netbox inventory
 ---
 - name: Playbook to gather facts from hosts
   connection: network_cli
