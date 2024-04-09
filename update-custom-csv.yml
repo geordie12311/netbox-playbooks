@@ -22,7 +22,7 @@
         netbox_url: "{{ lookup('env', 'NETBOX_URL') }}"
         netbox_token: "{{ lookup('env', 'NETBOX_TOKEN') }}"
         data:
-          name: "{{ providers }}"
+          name: "{{ maint }}"
           custom_fields: 
             Maintenance_Provider: "{{ maint.provider_name }}"
             Maintenance_Renewal_date: "{{ maint.renewal_date }}"
