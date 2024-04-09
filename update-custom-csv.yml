@@ -1,6 +1,6 @@
 # Ansible Playbook to add details from a CSV file to custom fields in Netbox
-# Note: This has not been tested yet.
-# Note: you need to export NETBOX_URL and NETBOX_TOKEN first Example:
+# Note 1: This has not been tested yet but CSV should be structured with hostname,proivder_name & renewal_date as column headers
+# Note 2: you need to export NETBOX_URL and NETBOX_TOKEN first Example:
 # export NETBOX_URL=http://192.168.1.1/
 # export NETBOX_token=abcde123456723456!!
 ---
@@ -13,8 +13,8 @@
     - name: Read users from CSV file and return a dictionary
       community.general.read_csv:
         path: maintenance.csv
-        key: hostname
-      register: providers
+        fieldnames: hostname,provider_name,renewal_date
+      register: maint
       delegate_to: localhost
 
     - name: Add Maintenance Provider and renewal dates from CSV file
@@ -24,10 +24,10 @@
         data:
           name: "{{ providers }}"
           custom_fields: 
-            Maintenance_Provider: "{{ providers.provider }}"
-            Maintenance_Renewal_date: "{{ providers.renewal_date }}"
+            Maintenance_Provider: "{{ maint.provider_name }}"
+            Maintenance_Renewal_date: "{{ maint.renewal_date }}"
         state: present
       loop: 
-        - "{{ providers.hostname }}"
+        - "{{ maint.hostname }}"
       delegate_to: localhost
 ...
