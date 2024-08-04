@@ -1,6 +1,6 @@
 # Ansible Playbook to create custom fields in Netbox
 # Note: you need to export NETBOX_URL and NETBOX_TOKEN first Example:
-# export NETBOX_URL=http://192.168.1.1/
+# export NETBOX_URL=https://192.168.1.1/
 # export NETBOX_token=abcde123456723456!!
 ---
 - name: "NetBox create custom_fields"
@@ -22,6 +22,7 @@
       netbox.netbox.netbox_custom_field:
         netbox_url: "{{ lookup('env', 'NETBOX_URL') }}"
         netbox_token: "{{ lookup('env', 'NETBOX_TOKEN') }}"
+        validate_certs: False
         data:
           name: Maintenance_Renewal_date
           description: "Current Maintenance Renewal Date"
@@ -30,6 +31,7 @@
       netbox.netbox.netbox_custom_field:
         netbox_url: "{{ lookup('env', 'NETBOX_URL') }}"
         netbox_token: "{{ lookup('env', 'NETBOX_TOKEN') }}"
+        validate_certs: False
         data:
           name: Firmware_version
           description: "Current Firmware version running on the device"
