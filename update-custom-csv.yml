@@ -1,7 +1,7 @@
 # Ansible Playbook to add details from a CSV file to custom fields in Netbox
 # Note 1: This has not been tested yet but CSV should be structured with hostname,proivder_name & renewal_date as column headers
 # Note 2: you need to export NETBOX_URL and NETBOX_TOKEN first Example:
-# export NETBOX_URL=http://192.168.1.1/
+# export NETBOX_URL=https://192.168.1.1/
 # export NETBOX_token=abcde123456723456!!
 ---
 - name: Gather facts from hosts to populate Netbox
@@ -21,6 +21,7 @@
       netbox.netbox.netbox_device:
         netbox_url: "{{ lookup('env', 'NETBOX_URL') }}"
         netbox_token: "{{ lookup('env', 'NETBOX_TOKEN') }}"
+        validate_certs: False
         data:
           name: "{{ maint }}"
           custom_fields: 
