@@ -1,7 +1,7 @@
 # Ansible Playbook to add firmware details taken from gather_facts
 # to custom field in Netbox
 # Note: you need to export NETBOX_URL and NETBOX_TOKEN first Example:
-# export NETBOX_URL=http://192.168.1.1/
+# export NETBOX_URL=https://192.168.1.1/
 # export NETBOX_token=abcde123456723456!!
 ---
 - name: Gather facts from hosts to populate Netbox
@@ -14,6 +14,7 @@
       netbox.netbox.netbox_device:
         netbox_url: "{{ lookup('env', 'NETBOX_URL') }}"
         netbox_token: "{{ lookup('env', 'NETBOX_TOKEN') }}"
+        valdidate_certs: False
         data:
           name: "{{ item }}"
           custom_fields: 
