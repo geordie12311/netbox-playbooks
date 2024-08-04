@@ -1,6 +1,6 @@
 # Ansible Playbook to add circuit to Netbox
 # Note: you need to export NETBOX_URL and NETBOX_TOKEN first Example:
-# export NETBOX_URL=http://192.168.1.1/
+# export NETBOX_URL=https://192.168.1.1/
 # export NETBOX_token=abcde123456723456!!
 ---
 - name: "Add Circuits to Netbox"
@@ -13,6 +13,7 @@
       netbox.netbox.netbox_provider:
         netbox_url: "{{ lookup('env', 'NETBOX_URL') }}"
         netbox_token: "{{ lookup('env', 'NETBOX_TOKEN') }}"
+        validate_certs: False
         data:
           name: GTT
           description: Current MPLS Service Provider
@@ -21,6 +22,7 @@
       netbox.netbox.netbox_rir:
         netbox_url: "{{ lookup('env', 'NETBOX_URL') }}"
         netbox_token: "{{ lookup('env', 'NETBOX_TOKEN') }}"
+        validate_certs: False
         data:
           name: RFC3031
         state: present
@@ -29,6 +31,7 @@
       netbox.netbox.netbox_asn:
         netbox_url: "{{ lookup('env', 'NETBOX_URL') }}"
         netbox_token: "{{ lookup('env', 'NETBOX_TOKEN') }}"
+        validate_certs: False
         data:
           asn: 65001
           rir: RFC3031
@@ -39,6 +42,7 @@
       netbox.netbox.netbox_provider:
         netbox_url: "{{ lookup('env', 'NETBOX_URL') }}"
         netbox_token: "{{ lookup('env', 'NETBOX_TOKEN') }}"
+        validate_certs: False
         data:
           name: GTT
           comments: "NOC contact details: noc@gtt.net"
@@ -48,6 +52,7 @@
       netbox.netbox.netbox_circuit_type:
         netbox_url: "{{ lookup('env', 'NETBOX_URL') }}"
         netbox_token: "{{ lookup('env', 'NETBOX_TOKEN') }}"
+        validate_certs: False
         data:
           name: MPLS
 
@@ -55,6 +60,7 @@
       netbox.netbox.netbox_circuit:
         netbox_url: "{{ lookup('env', 'NETBOX_URL') }}"
         netbox_token: "{{ lookup('env', 'NETBOX_TOKEN') }}"
+        validate_certs: False
         data:
           cid: GTT Test Circuit
           provider: GTT
