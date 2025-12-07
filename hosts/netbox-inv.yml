@@ -1,0 +1,10 @@
+plugin: netbox.netbox.nb_inventory
+api_endpoint: http://192.168.1.27/
+token: '37056889de8873cae765b9272b16e19c0c54c0cb'
+validate_certs: false
+config_context: false
+group_by:
+ - device_roles
+ - platforms
+compose:
+  ansible_network_os: platform.slug
